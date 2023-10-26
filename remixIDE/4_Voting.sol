@@ -83,4 +83,12 @@ contract Voting {
     function getVoterNum() external view returns (uint) {
         return voterNum;
     }
+    
+    function getCandidateNum() external view returns (uint) {
+        return candidateNum;
+    }
+
+    function getNumOfAdmins() external view returns (uint) {
+        return numOfAdmins;
+    }
 }
