@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <!-- Bootstrap CSS -->
+	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"
+    integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
+<link rel="stylesheet" href="style.css">
+
+    <title>Document</title>
+</head>
+<body>
+    <A href="index.html">first</A>
+
+    <p id="taskCount" class="task-count text-white">0 Task</p>
+
+    <!-- Floating Action Button -->
+    <button id="fab" data-toggle="modal" data-target="#add-task-container">
+        <img class="m-auto" src="https://github.com/gupta-shrinath/Bloc/raw/gupta-shrinath/images/plus.png"
+            alt="" height="16" width="16">
+    </button>
+    <!-- Floating Action Button -->
+
+    <!-- Task List-->
+    <ul id="list" class="list-group mt-3">list
+    </ul>
+    <!-- #Task List-->
+
+    <!-- Add Task Modal -->
+    <div id="add-task-container" class="modal add-task-container" data-backdrop="true">
+        <div class="container">
+            <div class="col mx-2">
+                <h5 class="text-primary text-center mt-4">New Task</h5>
+                <input id="new-task" class="mt-3" type="text">
+                <button type="button" data-dismiss="modal" class="btn btn-primary btn-block mt-3"
+                    onclick="addTask(document.getElementById('new-task').value);">Add
+                    Task</button>
+            </div>
+        </div>
+    </div>
+    <!-- Optional JavaScript -->
+	<!-- jQuery first, then Popper.js, then Bootstrap JS -->
+	<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"
+    integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj"
+    crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"
+    integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN"
+    crossorigin="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"
+    integrity="sha384-B4gt1jrGC7Jh4AgTPSdUtOBvfO8shuf57BaghqFfPlYxofvL8/KUEfYiJOMMV+rV"
+    crossorigin="anonymous"></script>
+<!-- App and related files JS-->
+<script src="https://cdn.jsdelivr.net/npm/web3@latest/dist/web3.min.js"></script>
+<script src="/GFG/config.js"></script>
+<script src="/GFG/getAccount.js"></script>
+<script src="/GFG/app.js"></script>
+</body>
+</html>
