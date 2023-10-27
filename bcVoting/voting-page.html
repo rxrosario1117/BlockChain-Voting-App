@@ -23,8 +23,17 @@
 		<input id="admin-pass" type="password" placeholder="Password">
 		<button id="admin-login-button" onclick="verifyPassword('admin-login-button')">Admin Login</button>		
 	</div>
+
+	<!-- show voter num button -->
 	<button id="vote-num" onclick="showVoterNum()">Show vote num</button>
-	<h1 id="voter-id">Nothing yet</h1>
+	<h1 id="voter-id">No voter num yet</h1>
+
+	<!-- Add candidate and Show candidate name buttons -->
+	<button onclick="addCandidate(document.getElementById('new-candidate').value)">Add Cand.</button>
+	<input placeholder="enter name" id="new-candidate">	
+
+	<button onclick="getCandidateName(0)">Get Name</button>
+	<p id="candidate-name">no name yet</p>
 
 	<!-- Optional JavaScript -->
 	<!-- jQuery.js -->
