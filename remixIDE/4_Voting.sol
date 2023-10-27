@@ -28,13 +28,20 @@ contract Voting {
     // Mapping to store all voters according to voterNum
     mapping(uint => Voter) public voters;
 
+    // Candidate[] public candidates;
     Candidate[] public candidates;
+
+    Admin public admin;
 
     // Constructor
     constructor() {
-        voterNum = 999;
+        voterNum = 0;
         candidateNum = 0;
         numOfAdmins = 0;
+
+        // Initialize admin's password
+        admin.password = "1234qwer";
+        numOfAdmins++;
     }
 
     // Add candidate to candidates array
@@ -45,7 +52,7 @@ contract Voting {
             id: candidateNum
         }));
 
-        candidateNum++;
+        candidateNum++;        
     }
 
     // Make a ballot and update a candidates vote count
@@ -56,11 +63,11 @@ contract Voting {
 
         // Increment vote count for a candidate
         for (uint i = 0; i < candidates.length; i++) {
-            // If the ballot's candidate num == candidates candidate num
-            if (_candidateNum == candidates[i].id) {
-                candidates[i].voteCount += 1;
-                break;
-            }
+        // If the ballot's candidate num == candidates candidate num
+        if (_candidateNum == candidates[i].id) {
+        candidates[i].voteCount += 1;
+        break;
+        }
         }
     }
 
@@ -80,15 +87,7 @@ contract Voting {
         return voters[_voterNum].usersVote;
     }
 
-    function getVoterNum() external view returns (uint) {
-        return voterNum;
-    }
-    
-    function getCandidateNum() external view returns (uint) {
-        return candidateNum;
-    }
-
-    function getNumOfAdmins() external view returns (uint) {
-        return numOfAdmins;
+    function getAdminPassword() external view returns (string memory) {
+        return admin.password;
     }
 }
