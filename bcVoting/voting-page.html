@@ -11,6 +11,8 @@
 	
 	<!-- Browser Title -->
 	<title>Cast A Vote</title>
+	
+	
 </head>
 <body style="background: grey">
 	<div style="background: black">
@@ -18,13 +20,38 @@
 		<!-- Button to get to the add a candidate page (admins only) -->
 		<a href="add-candidate-page.html">
 			<button id="candidate-page-button" hidden="true">Click Me To Add Candidate</button>
-		</a>		
+		</a>			
 		<!-- Button for an admin to enter their password -->
 		<input id="admin-pass" type="password" placeholder="Password">
 		<button id="admin-login-button" onclick="verifyPassword('admin-login-button')">Admin Login</button>		
 	</div>
 	<button id="vote-num" onclick="showVoterNum()">Show vote num</button>
 	<h1 id="voter-id">Nothing yet</h1>
+	<!-- //add a list function here for the ballot 
+	//find a way to plug into create ballot -->
+	Ballot:
+	<br>
+		
+	
+
+
+	<ul id="list" class="list-group mt-3">
+	</ul>
+
+	<script>
+		window.onload = async () => {
+			console.log("Page has finished loading.");
+			// Call the async function when the page loads
+			await displayBoxes();
+			console.log("Async function completed.");
+		};
+	</script> 
+
+	<!-- <button id="submitButton" value="clickme" onclick=" return submitBallot();">Submit</button> -->
+	
+
+		
+	
 
 	<!-- Optional JavaScript -->
 	<!-- jQuery.js -->

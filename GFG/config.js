@@ -89,4 +89,4 @@ let contractABI = [
 	}
 ];
 
-let contractAddress = "0xb39f148150dd2484499D1D73AFC0f00384c2D77a"
+let contractAddress = "0xc22E6266a0a8ba6c8399964cE9a828046595F9B0"
