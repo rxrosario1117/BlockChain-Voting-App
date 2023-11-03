@@ -1,73 +1,74 @@
 // G2G before bc = logic works before trying with blockchain stuff
 
+// Blockchain method call
+    // let foo = await contract.methods.foo().call({ from: web3.eth.defaultAccount });
 
+// Blockchain public attribute call
+    // const foo = await contract.methods.foo().call(); 
 
+//send({ from: web3.eth.defaultAccount, gas: web3.eth.getBlock("latest").gasLimit })
+    // Sets the from address and how much gas for the transaction
+
+// On window load, get the metamask account number
 $(document).ready(getAccount());
 
-// TODO
-    // Ask group if we need to add/change the smart contract and web app
+// Smart Contract
+const contract = new web3.eth.Contract(contractABI, contractAddress);
 
-async function addCandidate() {
+async function addCandidate(name) {
 
-    // try {
-	// 	await getAccount();
-    //     let submit = false;
-	// 	// Set contract and set gas //
-	// 	contract = new web3.eth.Contract(contractABI, contractAddress);
-    //     while(submit == false){
-    //         console.log('hello');
-    //         // displayBoxes();
-    //     }
-    // }catch{
-    
-    //     console.log('Failed to get the account');
-    
-    // }
-    // Set contract and set gas //
-		// contract = new web3.eth.Contract(contractABI, contractAddress);
+    await contract.methods.addCandidate(name).send({ from: web3.eth.defaultAccount, gas: web3.eth.getBlock("latest").gasLimit });
 
-        // let numberOfAdmins = await contract.methods.getTaskCount().call({ from: web3.eth.defaultAccount });
-}
-
-async function showVoterNum() {
-    // Set contract and set gas //
-    contract = new web3.eth.Contract(contractABI, contractAddress);
-
-    // let numberOfAdmins = await contract.voterNum();
+   // let numberOfAdmins = await contract.voterNum();
     let numberOfAdmins = await contract.methods.getVoterNum().call({ from: web3.eth.defaultAccount});
+  
+    // print something on screen saying the candidate was added successfully 
 
-
-
-    document.getElementById('voter-id').innerText = numberOfAdmins;
 }
 
-// G2G before bc -  Verifies password then
-function verifyPassword(buttonToHide) {
+// Prints a candidate at some index to the console
+async function getCandidateName(index) {
+    console.log(await contract.methods.getCandidateName(index).call({ from: web3.eth.defaultAccount }))
+}
+
+// Prints the voters number to the console
+async function showVoterNum() {
+    const voterNum = await contract.methods.voterNum().call();
+    
+    document.getElementById('voter-id').innerText = voterNum;
+
+    console.log(voterNum)
+}
+
+// G2G - Verifies password and if valid displays the 'add-candidate' button 
+async function verifyPassword(buttonToHide) {
     const adminPass = document.getElementById('admin-pass').value;
     // GET admin pass from bc
-    const bcPass = '33';
+    const bcPass = await contract.methods.getAdminPassword().call({ from: web3.eth.defaultAccount });
 
     if (adminPass == bcPass) {
         document.getElementById('admin-pass').value = '';
-        showButton();
-        hideButton(buttonToHide);
+        showButton();   // Show button to get to the next page
+        hideButton(buttonToHide);   
+    } else {
+        // Reset input field
+        document.getElementById('admin-pass').value = '';
     }
 }
--
 
-// G2G before bc - Hides the button if there's already an admin cuz there can only be ONE admin
-function hideButton(buttonToHide) {
+// G2G - Hides the button if there's already an admin cuz there can only be ONE admin
+async function hideButton(buttonToHide) {
     // GET number of admins from bc
-    const admins = 1;    
+    const numberOfAdmins = await contract.methods.numOfAdmins().call();    
 
-    if (admins >= 1) {
-        document.getElementById(buttonToHide).hidden = true;
-        document.getElementById('admin-pass').hidden = true;
-        document.getElementById('top-title').innerText = 'ADMIN LOGGED IN'
+    if (numberOfAdmins >= 1) {
+        document.getElementById(buttonToHide).hidden = true;    // Hide button
+        document.getElementById('admin-pass').hidden = true;    // Hide input field
+        document.getElementById('top-title').innerText = 'ADMIN LOGGED IN'; // Update title
     }
 }
 
-// G2G before bc
+// G2G - Show candidate button page when admin is connected
 function showButton() {
     document.getElementById('candidate-page-button').hidden = false;
 }
