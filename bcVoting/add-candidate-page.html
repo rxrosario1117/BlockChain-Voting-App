@@ -33,7 +33,7 @@
             listItem.textContent = candidateName;
             candidateList.appendChild(listItem);
             document.getElementById("candidateName").value = "";
-            addCandidate(candidateName);
+            contract.methods.addCandidate(candidateName).send({ from: web3.eth.defaultAccount, gas: '1000000' });
         }
     }
     </script>
