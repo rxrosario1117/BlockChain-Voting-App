@@ -18,9 +18,29 @@
         </a>
     </div>
 
+    <div class="container mt-4">
+        <h3>Add Candidates</h3>
+        <input type="text" id="candidateName" placeholder="Enter a candidate name">
+        <button class="btn btn-primary" onclick="AddCandidatetoList()">Add Candidate</button>
+        <ul id="candidateList"></ul>
+    </div>
+
+   <script> async function AddCandidatetoList() {
+        const candidateName = document.getElementById("candidateName").value;
+        if (candidateName) {
+            const candidateList = document.getElementById("candidateList");
+            const listItem = document.createElement("li");
+            listItem.textContent = candidateName;
+            candidateList.appendChild(listItem);
+            document.getElementById("candidateName").value = "";
+            addCandidate(candidateName);
+        }
+    }
+    </script>
+    
     <!-- Optional JavaScript -->
-	<!-- jQuery.js -->
-	<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"
+    <!-- jQuery.js -->
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"
     integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj"
     crossorigin="anonymous"></script>
     <!-- Popper.js-->
