@@ -1,5 +1,6 @@
 <!doctype html>
 <html lang="en">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.5.0/Chart.min.js"></script>
 
 <head>
 	<!-- Required meta tags -->
@@ -8,6 +9,7 @@
 	<!-- Bootstrap CSS -->
 	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"
 		integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
+		
 	
 	<!-- Browser Title -->
 	<title>Cast A Vote</title>
@@ -25,28 +27,12 @@
 		<input id="admin-pass" type="password" placeholder="Password">
 		<button id="admin-login-button" onclick="verifyPassword('admin-login-button')">Admin Login</button>		
 	</div>
-
-	<!-- show voter num button -->
 	<button id="vote-num" onclick="showVoterNum()">Show vote num</button>
-
-	<h1 id="voter-id">No voter num yet</h1>
-
-	<!-- Add candidate and Show candidate name buttons -->
-	<button onclick="addCandidate(document.getElementById('new-candidate').value)">Add Cand.</button>
-	<input placeholder="enter name" id="new-candidate">	
-
-	<button onclick="getCandidateName(0)">Get Name</button>
-	<p id="candidate-name">no name yet</p>
-  
-  	<h1 id="voter-id">Nothing yet</h1>
+	<h1 id="voter-id">Nothing yet</h1>
 	<!-- //add a list function here for the ballot 
 	//find a way to plug into create ballot -->
 	Ballot:
 	<br>
-		
-	
-
-
 	<ul id="list" class="list-group mt-3">
 	</ul>
 
@@ -55,13 +41,60 @@
 			console.log("Page has finished loading.");
 			// Call the async function when the page loads
 			await displayBoxes();
+			// await showBarChart();
 			console.log("Async function completed.");
 		};
 	</script> 
 
-	<!-- <button id="submitButton" value="clickme" onclick=" return submitBallot();">Submit</button> -->
+	<button id="submit" onclick="submitBallot()">Submit</button>
+	<p id="submission"></p>
+	<br>
+
+	<canvas id="barChart" style="width:100%;max-width:600px"></canvas>
+	<script>
+		var initialData = [0, 0, 0];
+        var initialLabels = ['Category A', 'Category B', 'Category C'];
+
+        // Function to create and update the chart
+        function createChart(data, labels) {
+            var ctx = document.getElementById('barChart').getContext('2d');
+            var chartData = {
+                labels: labels,
+                datasets: [{
+                    label: 'Polls',
+                    data: data,
+                    backgroundColor: ['red', 'green', 'blue'],
+                }]
+            };
+            var chartConfig = {
+                type: 'bar',
+                data: chartData,
+            };
+            return new Chart(ctx, chartConfig);
+        }
+
+        // Initial chart creation
+		try{
+			var barChart = createChart(initialData, initialLabels);
+		}catch(error){
+			console.log('creation of barchart didnt work: ', error);
+		}
+		
+	</script>
+	<button onclick="updateChart()">Show Polls</button>
+
+	
+
+	
+
+	
+
+		
+	
 
 	<!-- Optional JavaScript -->
+	
+
 	<!-- jQuery.js -->
 	<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"
 		integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj"
