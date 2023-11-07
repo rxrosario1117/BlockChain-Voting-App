@@ -15,6 +15,16 @@ $(document).ready(getAccount());
 // Smart Contract
 const contract = new web3.eth.Contract(contractABI, contractAddress);
 
+// Account tracker
+let counter = 0;
+let accounts = []
+
+async function getAccounts() {
+    let accounts = await web3.eth.getAccounts();
+
+    console.log(accounts.length)
+}
+
 async function addCandidate(name) {
 
     // If one doesn't work, try the other
@@ -38,6 +48,9 @@ async function showVoterNum() {
     document.getElementById('voter-id').innerText = voterNum;
 
     console.log(voterNum)
+
+    getAccounts();
+
 }
 
 // G2G - Verifies password and if valid displays the 'add-candidate' button 
