@@ -20,12 +20,18 @@ let contractABI =[
 		"type": "function"
 	},
 	{
-		"inputs": [],
-		"name": "admin",
+		"inputs": [
+			{
+				"internalType": "uint256",
+				"name": "",
+				"type": "uint256"
+			}
+		],
+		"name": "can",
 		"outputs": [
 			{
 				"internalType": "string",
-				"name": "password",
+				"name": "",
 				"type": "string"
 			}
 		],
@@ -93,13 +99,43 @@ let contractABI =[
 		"type": "function"
 	},
 	{
-		"inputs": [],
-		"name": "getAdminPassword",
+		"inputs": [
+			{
+				"internalType": "uint256",
+				"name": "index",
+				"type": "uint256"
+			}
+		],
+		"name": "getArrayElement",
 		"outputs": [
+			{
+				"internalType": "uint256",
+				"name": "",
+				"type": "uint256"
+			},
 			{
 				"internalType": "string",
 				"name": "",
 				"type": "string"
+			}
+		],
+		"stateMutability": "view",
+		"type": "function"
+	},
+	{
+		"inputs": [
+			{
+				"internalType": "string",
+				"name": "_name",
+				"type": "string"
+			}
+		],
+		"name": "getCandidateIndex",
+		"outputs": [
+			{
+				"internalType": "int256",
+				"name": "",
+				"type": "int256"
 			}
 		],
 		"stateMutability": "view",
@@ -125,13 +161,33 @@ let contractABI =[
 		"type": "function"
 	},
 	{
-		"inputs": [
+		"inputs": [],
+		"name": "getChartData",
+		"outputs": [
 			{
-				"internalType": "uint256",
-				"name": "_voterNum",
-				"type": "uint256"
+				"internalType": "int256[]",
+				"name": "",
+				"type": "int256[]"
 			}
 		],
+		"stateMutability": "view",
+		"type": "function"
+	},
+	{
+		"inputs": [],
+		"name": "getTodoList",
+		"outputs": [
+			{
+				"internalType": "string[]",
+				"name": "",
+				"type": "string[]"
+			}
+		],
+		"stateMutability": "view",
+		"type": "function"
+	},
+	{
+		"inputs": [],
 		"name": "getUsersVote",
 		"outputs": [
 			{
@@ -163,13 +219,20 @@ let contractABI =[
 		"type": "function"
 	},
 	{
-		"inputs": [
+		"inputs": [],
+		"name": "getVoterNum",
+		"outputs": [
 			{
 				"internalType": "uint256",
-				"name": "_voterNum",
+				"name": "",
 				"type": "uint256"
 			}
 		],
+		"stateMutability": "view",
+		"type": "function"
+	},
+	{
+		"inputs": [],
 		"name": "getVoterStatus",
 		"outputs": [
 			{
@@ -196,6 +259,13 @@ let contractABI =[
 	},
 	{
 		"inputs": [],
+		"name": "popStringList",
+		"outputs": [],
+		"stateMutability": "nonpayable",
+		"type": "function"
+	},
+	{
+		"inputs": [],
 		"name": "voterNum",
 		"outputs": [
 			{
@@ -210,9 +280,9 @@ let contractABI =[
 	{
 		"inputs": [
 			{
-				"internalType": "uint256",
+				"internalType": "address",
 				"name": "",
-				"type": "uint256"
+				"type": "address"
 			}
 		],
 		"name": "voters",
@@ -233,4 +303,6 @@ let contractABI =[
 	}
 ];
 
+
 let contractAddress = "0x27d98C9D59bd649a95a2E5038dE396C5c03A9D55"
+
