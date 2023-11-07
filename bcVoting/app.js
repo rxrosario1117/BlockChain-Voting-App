@@ -17,7 +17,10 @@ const contract = new web3.eth.Contract(contractABI, contractAddress);
 
 async function addCandidate(name) {
 
-    await contract.methods.addCandidate(name).send({ from: web3.eth.defaultAccount, gas: web3.eth.getBlock("latest").gasLimit });
+    // If one doesn't work, try the other
+    await contract.methods.addCandidate(name).send({ from: web3.eth.defaultAccount, gas: '1000000' });
+
+    // await contract.methods.addCandidate(name).send({ from: web3.eth.defaultAccount, gas: web3.eth.getBlock("latest").gasLimit });
 
     // print something on screen saying the candidate was added successfully 
 
@@ -68,4 +71,28 @@ async function hideButton(buttonToHide) {
 // G2G - Show candidate button page when admin is connected
 function showButton() {
     document.getElementById('candidate-page-button').hidden = false;
+}
+
+// Example to add a new candidate to a table to be displayed on voting page
+let newName = 'Natalie'
+let newTagID = ''
+let count = 0 // Maybe the count should be the candidateNum from the smart contract??
+
+// Maybe a for loop can be used to get the vote count for each candidate
+function showCandidateRunnings() {
+
+    // Give a unique tag id to a new candidate added to the table
+    newTagID = 'candidate_' + count
+
+    console.log(newTagID)
+
+    // JS to add a new row with a new vote count and candidate name with a new unique tag id so it can be referenced elsewhere
+    document.getElementById('canRows').innerHTML += (
+        "<tr>" +
+            "<td id='"+newTagID+"' style='padding: 10px; border: 1px solid black'>"+newName+"</td>" + 
+            "<td style='padding: 10px; border: 1px solid black'>Vote Count</td>" + 
+        "</tr>"
+    );
+
+    count += 1
 }
