@@ -83,7 +83,7 @@ contract Voting {
         return candidates[_candidateNum].name;
     }
 
-     function getCandidateIndex(string memory _name) public view returns (int) {
+    function getCandidateIndex(string memory _name) public view returns (int) {
         for (uint i = 0; i < candidates.length; i++) {
             if (keccak256(abi.encodePacked(candidates[i].name)) == keccak256(abi.encodePacked(_name))) {
                 return int(i);

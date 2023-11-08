@@ -1,6 +1,6 @@
 
 
-let contractABI =[
+let contractABI = [
 	{
 		"inputs": [],
 		"stateMutability": "nonpayable",
@@ -304,5 +304,5 @@ let contractABI =[
 ];
 
 
-let contractAddress = "0x27d98C9D59bd649a95a2E5038dE396C5c03A9D55"
+let contractAddress = "0xd8b934580fcE35a11B58C6D73aDeE468a2833fa8"
 
