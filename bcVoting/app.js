@@ -15,25 +15,17 @@ $(document).ready(getAccount());
 // Smart Contract
 const contract = new web3.eth.Contract(contractABI, contractAddress);
 
-// Account tracker
-let counter = 0;
-let accounts = []
+// Accounts from ganache blockchain
+let ganacheAccounts = [];
 
+
+// Fill ganacheAccounts array
 async function getAccounts() {
-    let accounts = await web3.eth.getAccounts();
-
-    console.log(accounts.length)
+    ganacheAccounts = await web3.eth.getAccounts();
 }
 
 async function addCandidate(name) {
-
-    // If one doesn't work, try the other
     await contract.methods.addCandidate(name).send({ from: web3.eth.defaultAccount, gas: '1000000' });
-
-    // await contract.methods.addCandidate(name).send({ from: web3.eth.defaultAccount, gas: web3.eth.getBlock("latest").gasLimit });
-
-
-    // print something on screen saying the candidate was added successfully 
 
 }
 
@@ -48,10 +40,7 @@ async function showVoterNum() {
     
     document.getElementById('voter-id').innerText = voterNum;
 
-    console.log(voterNum)
-
-    getAccounts();
-
+    getAccounts();    
 }
 
 // G2G - Verifies password and if valid displays the 'add-candidate' button 
@@ -88,11 +77,7 @@ function showButton() {
 }
 
 async function displayBoxes() {
-    
-    // const contract = new web3.eth.Contract(contractABI, contractAddress);
-
     let checkboxes = await contract.methods.getTodoList().call();
-
 
     checkboxes.forEach((name, id) => {
 
@@ -127,11 +112,7 @@ async function displayBoxes() {
         // Add onclick to the checkbox // 
         
     });
-
 }
-
-
-
 
 async function submitBallot(){
     
@@ -140,11 +121,17 @@ async function submitBallot(){
 
     if (selectedCan) {
         try {
+            let account = web3.eth.defaultAccount;
+
             // const contract = new web3.eth.Contract(contractABI, contractAddress);
             // await contract.methods.createBallot(name, id).send({ from: web3.eth.defaultAccount, gas: web3.eth.getBlock("latest").gaslimit });
-            await contract.methods.createBallot(selectedCan.value, selectedCan.id).send({ from: web3.eth.defaultAccount, gas: '1000000'}); 
-            console.log('submitBallot(): creating Ballot of user: ', selectedCan.value)
+            await contract.methods.createBallot(selectedCan.value, selectedCan.id).send({ from: account, gas: '1000000'}); 
+            // await contract.methods.createBallot(selectedCan.value, selectedCan.id).send({ from: web3.eth.defaultAccount, gas: '1000000'}); 
+            console.log('submitBallot(): creating Ballot of user: ' + selectedCan.value + ' \nfrom account: '+ account)
             document.getElementById("submission").innerHTML = "Succesfully voted";
+
+            // Log voter status
+            console.log(await contract.methods.getVoterStatus().call())
             
          } catch (error) {
             // console.log(error)
@@ -185,7 +172,6 @@ async function submitBallot(){
 // }
 
 async function updateChart() {
-
     let voteCount = await contract.methods.getChartData().call();
 
     //get inputs id and use that to call votecount. then also print names as labels 

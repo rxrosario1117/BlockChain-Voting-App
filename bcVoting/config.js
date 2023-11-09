@@ -1,11 +1,4 @@
-
-
-let contractABI =[
-	{
-		"inputs": [],
-		"stateMutability": "nonpayable",
-		"type": "constructor"
-	},
+let contractABI = [
 	{
 		"inputs": [
 			{
@@ -22,16 +15,40 @@ let contractABI =[
 	{
 		"inputs": [
 			{
+				"internalType": "string",
+				"name": "_usersVote",
+				"type": "string"
+			},
+			{
 				"internalType": "uint256",
-				"name": "",
+				"name": "_candidateNum",
 				"type": "uint256"
 			}
 		],
-		"name": "can",
+		"name": "createBallot",
+		"outputs": [],
+		"stateMutability": "nonpayable",
+		"type": "function"
+	},
+	{
+		"inputs": [],
+		"name": "popStringList",
+		"outputs": [],
+		"stateMutability": "nonpayable",
+		"type": "function"
+	},
+	{
+		"inputs": [],
+		"stateMutability": "nonpayable",
+		"type": "constructor"
+	},
+	{
+		"inputs": [],
+		"name": "admin",
 		"outputs": [
 			{
 				"internalType": "string",
-				"name": "",
+				"name": "password",
 				"type": "string"
 			}
 		],
@@ -100,21 +117,16 @@ let contractABI =[
 		"type": "function"
 	},
 	{
-		"inputs": [
+		"inputs": [],
+		"name": "getAdminPassword",
+		"outputs": [
 			{
 				"internalType": "string",
-				"name": "_usersVote",
+				"name": "",
 				"type": "string"
-			},
-			{
-				"internalType": "uint256",
-				"name": "_candidateNum",
-				"type": "uint256"
 			}
 		],
-		"name": "createBallot",
-		"outputs": [],
-		"stateMutability": "nonpayable",
+		"stateMutability": "view",
 		"type": "function"
 	},
 	{
@@ -164,43 +176,6 @@ let contractABI =[
 		"inputs": [
 			{
 				"internalType": "uint256",
-				"name": "index",
-				"type": "uint256"
-			}
-		],
-		"name": "getArrayElement",
-		"outputs": [
-			{
-				"internalType": "uint256",
-				"name": "",
-				"type": "uint256"
-			},
-			{
-				"internalType": "string",
-				"name": "",
-				"type": "string"
-			}
-		],
-		"stateMutability": "view",
-		"type": "function"
-	},
-	{
-		"inputs": [],
-		"name": "getCandidateList",
-		"outputs": [
-			{
-				"internalType": "string",
-				"name": "",
-				"type": "string"
-			}
-		],
-		"stateMutability": "view",
-		"type": "function"
-	},
-	{
-		"inputs": [
-			{
-				"internalType": "uint256",
 				"name": "_candidateNum",
 				"type": "uint256"
 			}
@@ -218,7 +193,8 @@ let contractABI =[
 	},
 	{
 		"inputs": [],
-
+		"name": "getChartData",
+		"outputs": [
 			{
 				"internalType": "int256[]",
 				"name": "",
@@ -277,7 +253,6 @@ let contractABI =[
 		"inputs": [],
 		"name": "getVoterNum",
 		"outputs": [
-
 			{
 				"internalType": "uint256",
 				"name": "",
@@ -311,13 +286,6 @@ let contractABI =[
 			}
 		],
 		"stateMutability": "view",
-		"type": "function"
-	},
-	{
-		"inputs": [],
-		"name": "popStringList",
-		"outputs": [],
-		"stateMutability": "nonpayable",
 		"type": "function"
 	},
 	{
@@ -359,8 +327,6 @@ let contractABI =[
 	}
 ];
 
-
-
-let contractAddress = "0x27d98C9D59bd649a95a2E5038dE396C5c03A9D55"
+let contractAddress = "0x453079403E9193119202DBB451064587AD631Bd6"
 
 
