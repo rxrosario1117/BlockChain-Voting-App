@@ -15,6 +15,14 @@ $(document).ready(getAccount());
 // Smart Contract
 const contract = new web3.eth.Contract(contractABI, contractAddress);
 
+let ganacheAccount = [];
+
+getGanacheAccounts();
+
+async function getGanacheAccounts() {
+    ganacheAccount = await web3.eth.getAccounts();
+}
+
 async function addCandidate(name) {
 
     await contract.methods.addCandidate(name).send({ from: web3.eth.defaultAccount, gas: '1000000' });
@@ -31,6 +39,10 @@ async function getCandidateName(index) {
 // Prints the voters number to the console
 async function showVoterNum() {
     const voterNum = await contract.methods.voterNum().call();
+
+    console.log(await contract.methods.getVoterStatus().call);
+    // console.log('acct 9 ' + ganacheAccount[9]);
+
     
     document.getElementById('voter-id').innerText = voterNum;
 
@@ -47,7 +59,9 @@ async function verifyPassword(buttonToHide) {
         document.getElementById('admin-pass').value = '';
         showButton();   // Show button to get to the next page
         hideButton(buttonToHide);   
-    } else {
+    } else if(adminPass != bcPass) {
+      document.getElementById("pwdCheck").innerHTML = "incorrect password";
+    }else {
         // Reset input field
         document.getElementById('admin-pass').value = '';
     }
@@ -120,14 +134,21 @@ async function submitBallot(){
     
     const canList = document.getElementById("list");
     const selectedCan = canList.querySelector('input[name="vote"]:checked');
+    const walletAddress = document.getElementById("addressInput").value;
 
-    if (selectedCan) {
+    let index = checkGanacheAccount(walletAddress);
+    // console.log(index);
+    
+
+
+    if (selectedCan && index!=-1) {
         try {
             // const contract = new web3.eth.Contract(contractABI, contractAddress);
             // await contract.methods.createBallot(name, id).send({ from: web3.eth.defaultAccount, gas: web3.eth.getBlock("latest").gaslimit });
-            await contract.methods.createBallot(selectedCan.value, selectedCan.id).send({ from: web3.eth.defaultAccount, gas: '1000000'}); 
+            await contract.methods.createBallot(selectedCan.value, selectedCan.id).send({ from: ganacheAccount[index], gas: '1000000'}); 
             console.log('submitBallot(): creating Ballot of user: ', selectedCan.value)
             document.getElementById("submission").innerHTML = "Succesfully voted";
+
             
          } catch (error) {
             // console.log(error)
@@ -139,33 +160,62 @@ async function submitBallot(){
         }
         // check if querySelector is working (below)
         // console.log("Selected answer: " + selectedCan.value);
-    } else {
+    } else if (index == -1){
+        document.getElementById("submission").innerHTML = "improper wallet address";
+        console.log("inputed address does not match known wallets in local source");
+    }else {
         console.log("Please select an option.");
     }
 
     
 }
 
-// async function showBarChart(){
+ function checkGanacheAccount(input){
+    let user = input;
+    const result = -1;
+    for(let i=0; i<10; i++){
+        if(user == ganacheAccount[i]){
+            console.log("ganache account verified: "+ user);
+            return i;
+        }
+        else{
+            console.log("no user found in ganache: "+ i);
+        }
+    }
 
-//     var ctx = document.getElementById('barChart').getContext('2d');
-//     var data = {
-//         labels: initialLabels,
-//         datasets: [{
-//             label: 'Sample Data',
-//             data: initialData,
-//             backgroundColor: ['red', 'green', 'blue'],
-//         }]
-//     };
-//     var config = {
-//         type: 'bar',
-//         data: data,
-//     };
-//     var barChart = new Chart(ctx, config);
+    return result;
+}
+async function addUserAddress(){
+    
+    for (let i=1; i<10; i++){
+        try{
+            let account = ganacheAccount[i];
+            contract.methods.addAllowedUser(account).send({ from: web3.eth.defaultAccount, gas: '1000000' });
+            console.log("adding user: " + account);
+        }catch(error){
+            console.log("error in adding user:", error);
+        }
+    }
 
-    
-    
-// }
+    // const user = document.getElementById("UserAddress").value;
+    // let index = checkGanacheAccount(user);
+    // if (user && index!=-1) {
+    //     try{
+    //         contract.methods.addAllowedUser(user).send({ from: web3.eth.defaultAccount, gas: '1000000' });
+    //         console.log("adding user: " + user);
+    //     }catch(error){
+    //         console.log("error in adding user:", error);
+    //     }
+        
+    // }
+    // else if (index == -1){
+    //     console.log("inputed address does not match known wallets in local source");
+    // }else {
+    //     console.log("Please select an option.");
+    // }
+
+
+}
 
 async function updateChart() {
 
@@ -180,7 +230,8 @@ async function updateChart() {
 
     //get votecount data for each canidate from remix
     voteCount.forEach((inputData) => {
-        let x = parseInt(inputData);
+        let x = Math.round(parseInt(inputData));
+        console.log('Parsed Data:', x);
         try{
             initialData.push(x);
             console.log('push data:', x);

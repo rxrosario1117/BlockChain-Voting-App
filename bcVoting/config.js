@@ -9,6 +9,19 @@ let contractABI =[
 	{
 		"inputs": [
 			{
+				"internalType": "address",
+				"name": "_user",
+				"type": "address"
+			}
+		],
+		"name": "addAllowedUser",
+		"outputs": [],
+		"stateMutability": "nonpayable",
+		"type": "function"
+	},
+	{
+		"inputs": [
+			{
 				"internalType": "string",
 				"name": "_name",
 				"type": "string"
@@ -17,6 +30,38 @@ let contractABI =[
 		"name": "addCandidate",
 		"outputs": [],
 		"stateMutability": "nonpayable",
+		"type": "function"
+	},
+	{
+		"inputs": [],
+		"name": "admin",
+		"outputs": [
+			{
+				"internalType": "string",
+				"name": "password",
+				"type": "string"
+			}
+		],
+		"stateMutability": "view",
+		"type": "function"
+	},
+	{
+		"inputs": [
+			{
+				"internalType": "uint256",
+				"name": "",
+				"type": "uint256"
+			}
+		],
+		"name": "allowedUsers",
+		"outputs": [
+			{
+				"internalType": "address",
+				"name": "",
+				"type": "address"
+			}
+		],
+		"stateMutability": "view",
 		"type": "function"
 	},
 	{
@@ -96,6 +141,19 @@ let contractABI =[
 		"name": "createBallot",
 		"outputs": [],
 		"stateMutability": "nonpayable",
+		"type": "function"
+	},
+	{
+		"inputs": [],
+		"name": "getAdminPassword",
+		"outputs": [
+			{
+				"internalType": "string",
+				"name": "",
+				"type": "string"
+			}
+		],
+		"stateMutability": "view",
 		"type": "function"
 	},
 	{
@@ -296,6 +354,11 @@ let contractABI =[
 				"internalType": "string",
 				"name": "usersVote",
 				"type": "string"
+			},
+			{
+				"internalType": "bool",
+				"name": "hasAccess",
+				"type": "bool"
 			}
 		],
 		"stateMutability": "view",
@@ -304,5 +367,5 @@ let contractABI =[
 ];
 
 
-let contractAddress = "0x27d98C9D59bd649a95a2E5038dE396C5c03A9D55"
+let contractAddress = "0xe3022079CebaB7324a6016e5Db6eb2aDC8110639"
 

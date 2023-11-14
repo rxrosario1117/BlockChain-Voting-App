@@ -11,6 +11,7 @@ contract Voting {
     struct Voter {
         bool hasVoted;  // True if a vote has been cast
         string usersVote; // Name of the candidate the user voted for 
+        bool hasAccess;
     }
 
     // Candidate with a name and vote count
@@ -28,16 +29,35 @@ contract Voting {
     // Mapping to store all voters according to voterNum
     // mapping(uint => Voter) public voters;
     mapping(address => Voter) public voters;
+    address[] public allowedUsers;
+    // mapping(address => bool) public hasAccess;
 
     Candidate[] public candidates;
     string[] public can;
+
+    Admin public admin;
 
     // Constructor
     constructor() {
         voterNum = 999;
         candidateNum = 0;
         numOfAdmins = 0;
+
+        allowedUsers.push(msg.sender);
+        voters[msg.sender].hasAccess = true;
+
+        admin.password = "1234qwer";
+        numOfAdmins++;
     }
+
+    modifier onlyAllowedUsers() {
+        require(voters[msg.sender].hasAccess, "Not allowed");
+        _;
+    }
+
+    function getAdminPassword() external view returns (string memory) {
+        return admin.password;
+    } 
 
     // Add candidate to candidates array
     function addCandidate(string memory _name) public {
@@ -52,10 +72,15 @@ contract Voting {
         candidateNum++;
     }
 
+    function addAllowedUser(address _user) external {
+        require(!voters[_user].hasAccess, "User already has access");
+        allowedUsers.push(_user);
+        voters[_user].hasAccess = true;
+    }
     
 
     // Make a ballot and update a candidates vote count
-    function createBallot(string memory _usersVote, uint _candidateNum) public {
+    function createBallot(string memory _usersVote, uint _candidateNum) external onlyAllowedUsers {
         // require(candidateNum < can.length, "Invalid candidate input");
         require(!voters[msg.sender].hasVoted, "You have already voted");
         voters[msg.sender].hasVoted = true;
@@ -74,6 +99,8 @@ contract Voting {
             }
         }
     }
+
+    //check if you can change the address in javascript 
 
     function getVoteCount(uint _candidateNum) external view returns (uint) {
         return candidates[_candidateNum].voteCount;
@@ -149,8 +176,6 @@ contract Voting {
         return can;
     }
 
-   
 
- 
 
 }
