@@ -15,17 +15,23 @@ $(document).ready(getAccount());
 // Smart Contract
 const contract = new web3.eth.Contract(contractABI, contractAddress);
 
+
 let ganacheAccount = [];
 
 getGanacheAccounts();
 
 async function getGanacheAccounts() {
     ganacheAccount = await web3.eth.getAccounts();
+
 }
 
 async function addCandidate(name) {
 
+    // If one doesn't work, try the other
     await contract.methods.addCandidate(name).send({ from: web3.eth.defaultAccount, gas: '1000000' });
+
+    // await contract.methods.addCandidate(name).send({ from: web3.eth.defaultAccount, gas: web3.eth.getBlock("latest").gasLimit });
+
 
     // print something on screen saying the candidate was added successfully 
 
@@ -47,6 +53,9 @@ async function showVoterNum() {
     document.getElementById('voter-id').innerText = voterNum;
 
     console.log(voterNum)
+
+    getAccounts();
+
 }
 
 // G2G - Verifies password and if valid displays the 'add-candidate' button 
@@ -263,4 +272,3 @@ async function updateChart() {
     barChart.destroy(); // Destroy the existing chart
     barChart = createChart(newData, newLabels); // Create a new chart with updated data
 }
-

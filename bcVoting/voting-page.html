@@ -12,11 +12,24 @@
 		
 	
 	<!-- Browser Title -->
+	<style>
+		body {
+		  background: #555;
+		}
+		
+		.content {
+		  max-width: 500px;
+		  margin: auto;
+		  background: white;
+		  padding: 10px;
+		  background-color: grey;
+		}
+		</style>
 	<title>Cast A Vote</title>
 	
 	
 </head>
-<body style="background: grey">
+<body class="content">
 	<div style="background: black">
 		<h1 id="top-title" style="color: rgb(4, 255, 222)">Vote For Your Favorite Candidate</h1>		
 		<!-- Button to get to the add a candidate page (admins only) -->
@@ -93,6 +106,33 @@
 
 		
 	
+
+	<div>
+		<text id="canRunnings">start text</text>
+		<button onclick="showCandidateRunnings()">change the text</button>
+		<br>
+		<br>
+
+		<table  id="canRows">
+			<tr>
+			  <th style="padding: 10px; border: 1px solid black">Candidate</th>
+			  <th  style="padding: 10px; border: 1px solid black">Vote Count</th>
+			</tr>
+			<tr>
+			  <td style="padding: 10px; border: 1px solid black">Emil</td>
+			  <td style="padding: 10px; border: 1px solid black">Vote Count</td>
+			</tr>
+			<tr>
+			  <td style="padding: 10px; border: 1px solid black">Ray</td>
+			  <td style="padding: 10px; border: 1px solid black">Vote Count</td>
+			</tr>
+			<tr>
+				<td style="padding: 10px; border: 1px solid black">Linda</td>
+				<td style="padding: 10px; border: 1px solid black">Vote Count</td>
+			</tr>
+		  </table>
+		  
+	</div>
 
 	<!-- Optional JavaScript -->
 	
